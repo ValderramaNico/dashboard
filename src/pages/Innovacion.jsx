@@ -16,7 +16,7 @@ const Innovacion = () => {
         </div>
 
         {/* Kosin Project Card */}
-        <div className="p-6 rounded-3xl" style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--glass-border)' }}>
+        <div className="p-6 rounded-2xl" style={{ background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--glass-border)' }}>
           <div className="flex gap-6 items-start" style={{ flexWrap: 'wrap-reverse' }}>
             
             {/* Project Details */}
@@ -66,15 +66,15 @@ const Innovacion = () => {
 
             {/* Screenshots */}
             <div className="flex-col items-center" style={{ flex: '1.2 1 300px', minWidth: '280px' }}>
-              <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'var(--glass-border)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}>
+              <div className="media-frame rounded-2xl border" style={{ borderColor: 'var(--glass-border)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)' }}>
                 <img 
                   src="/kosin_consultation.png" 
                   alt="KOSIN Jira Ticket & Consultation Screenshot" 
-                  className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-auto object-cover"
                   style={{ display: 'block' }}
                 />
               </div>
-              <p className="text-xs text-muted text-center mt-2 font-serif italic">Seguimiento en Jira KOSIN con Anthony Rangel</p>
+              <p className="text-xs text-muted text-center font-serif italic" style={{ marginTop: '1rem' }}>Seguimiento en Jira KOSIN con Anthony Rangel</p>
             </div>
 
           </div>

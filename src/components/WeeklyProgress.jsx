@@ -22,7 +22,7 @@ const WeeklyProgress = () => {
               <p className="text-sm text-muted">Casos Creados/Refact.</p>
               <h3 className="text-2xl font-bold">15</h3>
             </div>
-            <div className="p-2 rounded-full" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
+            <div className="icon-badge" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
               <FileText className="text-cyan" size={24} />
             </div>
           </div>
@@ -35,7 +35,7 @@ const WeeklyProgress = () => {
               <p className="text-sm text-muted">Casos Ejecutados</p>
               <h3 className="text-2xl font-bold">58</h3>
             </div>
-            <div className="p-2 rounded-full" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
+            <div className="icon-badge" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
               <PlayCircle className="text-purple" size={24} />
             </div>
           </div>
@@ -48,7 +48,7 @@ const WeeklyProgress = () => {
               <p className="text-sm text-muted">OPCOs Activas</p>
               <h3 className="text-2xl font-bold">2</h3>
             </div>
-            <div className="p-2 rounded-full" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
+            <div className="icon-badge" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
               <Laptop size={24} />
             </div>
           </div>
@@ -61,7 +61,7 @@ const WeeklyProgress = () => {
               <p className="text-sm text-muted">Plataformas</p>
               <h3 className="text-2xl font-bold">2</h3>
             </div>
-            <div className="p-2 rounded-full" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
+            <div className="icon-badge" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
               <Smartphone className="text-cyan" size={24} />
             </div>
           </div>
@@ -111,25 +111,25 @@ const WeeklyProgress = () => {
         </div>
       </div>
 
-      <div className="glass-card border-l-4 border-l-cyan bg-[rgba(0,114,188,0.05)]" style={{ display: 'flex', flexDirection: 'row', gap: '1.5rem', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+      <div className="glass-card" style={{ display: 'flex', flexDirection: 'row', gap: '1.5rem', alignItems: 'flex-start', flexWrap: 'wrap', background: 'rgba(0,114,188,0.05)' }}>
         <div style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-[rgba(0,114,188,0.15)] flex items-center justify-center">
-              <Laptop className="text-cyan animate-pulse" size={24} />
+            <div className="icon-badge" style={{ background: 'rgba(0,114,188,0.15)' }}>
+              <Laptop className="text-cyan" size={24} />
             </div>
             <div className="flex-col">
-              <span className="text-[10px] font-bold text-cyan uppercase tracking-wider">Hito de Integración (14/07)</span>
+              <span className="text-xs font-bold text-cyan uppercase" style={{ letterSpacing: '0.08em' }}>Hito de Integración (14/07)</span>
               <h3 className="text-lg font-bold text-white" style={{ margin: 0 }}>Integración Completa con Jira/Zephyr</h3>
             </div>
           </div>
-          <p className="text-sm text-[rgba(255,255,255,0.85)] leading-relaxed" style={{ margin: 0 }}>
+          <p className="text-sm leading-relaxed" style={{ margin: 0, color: 'rgba(255,255,255,0.85)' }}>
             Se completó con éxito la integración del ciclo de automatización de pruebas mobile con <strong className="text-cyan">Zephyr</strong>. 
             A partir de ahora, cada ejecución del pipeline crea automáticamente el ciclo en la plataforma, registra el resultado de todos los casos de prueba y asocia evidencias capturadas por cada caso exitoso (Passed). 
             Con este avance, garantizamos una <strong className="text-white">trazabilidad del 100%</strong> sin intervención manual.
           </p>
         </div>
         <div style={{ width: '150px', height: '150px', flexShrink: 0, borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255, 255, 255, 0.1)', boxShadow: 'var(--glass-shadow)', margin: '0 auto' }}>
-          <img src="/zephyr_code.png" alt="Evidencia Código Zephyr" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'left top' }} />
+          <img src="/zephyr_code.png" alt="Evidencia código Zephyr" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'left top' }} />
         </div>
       </div>
       

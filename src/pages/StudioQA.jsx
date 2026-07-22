@@ -16,9 +16,9 @@ const StudioQA = () => {
         </div>
 
         {/* Training Card */}
-        <div className="p-5 rounded-3xl" style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid var(--glass-border)' }}>
+        <div className="p-5 rounded-2xl" style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid var(--glass-border)' }}>
           <div className="flex items-start gap-4">
-            <div className="p-3 rounded-full" style={{ background: 'var(--brand-blue)' }}>
+            <div className="icon-badge" style={{ background: 'var(--brand-blue)' }}>
               <Rocket size={24} color="#fff" />
             </div>
             

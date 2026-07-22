@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Smartphone, Presentation, Lightbulb, Bot, Activity, Award, Menu, X } from 'lucide-react';
+import { Smartphone, Bot, Activity, Award, Menu, X } from 'lucide-react';
 import { getIsoWeek } from '../utils/dashboard';
 
 const DashboardLayout = ({ children }) => {
@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }) => {
 
       <aside className={`sidebar ${isMenuOpen ? 'sidebar-open' : ''}`}>
         <div className="flex items-center gap-4 mb-6 px-4">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: 'var(--brand-blue)', color: '#fff' }}>
+          <div className="icon-badge" style={{ background: 'var(--brand-blue)', color: '#fff' }}>
             <Activity size={24} />
           </div>
           <div>
@@ -55,7 +55,7 @@ const DashboardLayout = ({ children }) => {
         <div className="mt-auto system-state-box p-4">
           <p className="text-sm font-semibold text-purple mb-2">Estado del Sistema</p>
           <div className="flex items-center gap-2 text-sm text-muted">
-            <span className="w-2 h-2 rounded-full" style={{ background: 'var(--brand-blue)', boxShadow: '0 0 8px var(--brand-blue)' }}></span>
+            <span className="w-2 h-2 rounded-full" style={{ background: 'var(--brand-blue)' }}></span>
             Servicios Operativos
           </div>
         </div>

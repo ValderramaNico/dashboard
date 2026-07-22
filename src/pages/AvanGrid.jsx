@@ -138,7 +138,7 @@ const AvanGrid = () => {
         <div className="glass-card mb-6" style={{ borderColor: 'rgba(0, 180, 216, 0.4)', borderWidth: '1px' }}>
           <div className="task-history-header">
             <h3 className="font-semibold text-lg text-cyan flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan animate-pulse"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan status-pulse"></span>
               Tareas finalizadas ({selectedTaskDate || selectedTasks[0].date})
             </h3>
             {taskDates.length > 1 && (
@@ -185,7 +185,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Total Creados (Junio)</p>
                   <h3 className="text-2xl font-bold">72</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
                   <FileSpreadsheet className="text-cyan" size={24} />
                 </div>
               </div>
@@ -198,7 +198,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Creados por Nicolás</p>
                   <h3 className="text-2xl font-bold">40</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
                   <UserCheck className="text-purple" size={24} />
                 </div>
               </div>
@@ -211,7 +211,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Creados por Otros</p>
                   <h3 className="text-2xl font-bold">32</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
                   <UserCheck size={24} />
                 </div>
               </div>
@@ -224,7 +224,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Categoría Líder</p>
                   <h3 className="text-2xl font-bold">Payment Flow</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
                   <Layers className="text-cyan" size={24} />
                 </div>
               </div>
@@ -292,7 +292,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Progreso Global</p>
                   <h3 className="text-2xl font-bold">50.6%</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(0, 114, 188, 0.1)' }}>
                   <Percent className="text-cyan" size={24} />
                 </div>
               </div>
@@ -305,7 +305,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Casos Automatizados</p>
                   <h3 className="text-2xl font-bold text-white">134</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(74, 222, 128, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(74, 222, 128, 0.1)' }}>
                   <CheckCircle style={{ color: '#4ade80' }} size={24} />
                 </div>
               </div>
@@ -318,7 +318,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Casos No Automáticos</p>
                   <h3 className="text-2xl font-bold">70</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(230, 182, 0, 0.1)' }}>
                   <HelpCircle className="text-purple" size={24} />
                 </div>
               </div>
@@ -331,7 +331,7 @@ const AvanGrid = () => {
                   <p className="text-sm text-muted">Total General TCs</p>
                   <h3 className="text-2xl font-bold">335</h3>
                 </div>
-                <div className="p-2 rounded-full" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
+                <div className="icon-badge" style={{ background: 'rgba(255, 255, 255, 0.1)' }}>
                   <Smartphone size={24} />
                 </div>
               </div>

@@ -27,3 +27,8 @@ qa_validation_dates.txt
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary helper scripts
+scripts/
+.graphify/
+

@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22622",
+    "name": "CMP - MNDC-111 - Android - Outage List opens in in-app web with SSO (CMP)",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22623",
+    "name": "CMP - MNDC-111 - Android - Outage Map opens in in-app web (CMP)",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22624",
+    "name": "CMP - MNDC-111 - Android - Outage Central redirects to CMP outages landing with SSO",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22627",
+    "name": "CMP - MNDC-111 - Android - Instagram opens native app for CMP if installed",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22628",
+    "name": "CMP - MNDC-111 - Android - Instagram falls back to in-app webview for CMP if not installed",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22629",
+    "name": "CMP - MNDC-111 - Android - X opens native app for CMP if installed",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22630",
+    "name": "CMP - MNDC-111 - Android - X falls back to in-app webview for CMP if not installed",
+    "assigned": "Nicolas"
+  },
+  {
+    "date": "2026-07-20",
+    "sheet": "Outages",
+    "key": "MSTREG-T22631",
+    "name": "CMP - MNDC-111 - Android - Call 911 - Confirm Dialog, Cancel, and Call Behavior",
+    "assigned": "Nicolas"
+  }
+]

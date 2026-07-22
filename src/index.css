@@ -20,7 +20,16 @@
   
   /* Brand Rounded Borders (NTT style is highly rounded/pill) */
   --border-radius-pill: 3rem;
-  --border-radius-card: 1.5rem;
+  --border-radius-card: 1rem;
+
+  /* Typographic scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
 }
 
 * {
@@ -43,7 +52,7 @@ body {
   font-family: 'Noto Sans', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-main);
-  min-height: 100vh;
+  min-height: 100dvh;
   /* subtle brand gradient background */
   background: radial-gradient(circle at 15% 50%, rgba(0, 114, 188, 0.15), transparent 35%),
               radial-gradient(circle at 85% 30%, rgba(230, 182, 0, 0.06), transparent 35%),
@@ -55,6 +64,9 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   font-family: 'Noto Serif', serif;
   font-weight: 500;
   color: var(--text-main);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 /* Typography Utilities */
@@ -99,7 +111,7 @@ h1, h2, h3, h4, h5, h6, .font-serif {
 .h-2\.5 { height: 0.625rem; }
 .h-3\.5 { height: 0.875rem; }
 .h-10 { height: 2.5rem; }
-.min-h-screen { min-height: 100vh; }
+.min-h-screen { min-height: 100dvh; }
 .p-1 { padding: 0.25rem; }
 .p-2 { padding: 0.5rem; }
 .p-3 { padding: 0.75rem; }
@@ -130,29 +142,111 @@ h1, h2, h3, h4, h5, h6, .font-serif {
 .rounded-3xl { border-radius: 1.5rem; }
 .border-t { border-top: 1px solid; }
 
+/* Fixed-size circular icon badge (prevents oval distortion from flex stretching) */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
 /* Glassmorphism Card (NTT styled - round corners) */
+/* Single treatment: soft brand border + low-blur shadow (no ghost-card double effect) */
 .glass-card {
   background: var(--bg-card);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(0, 114, 188, 0.18);
   border-radius: var(--border-radius-card);
   padding: 1.5rem;
-  box-shadow: var(--glass-shadow);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.25);
+  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
 .glass-card:hover {
   background: var(--bg-card-hover);
-  transform: translateY(-3px);
-  border-color: rgba(0, 114, 188, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(0, 114, 188, 0.15);
+  transform: translateY(-2px);
+  border-color: rgba(0, 114, 188, 0.35);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-card,
+  .sidebar {
+    background: var(--bg-dark);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Live-status pulse — real implementation (replaces a dead `animate-pulse` Tailwind
+   class that had no effect since Tailwind isn't installed in this project) */
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Tab content fades in on switch instead of a hard jump cut */
+@keyframes tab-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-panel {
+  animation: tab-fade-in 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Media frame glow — subtle border/shadow brighten on hover (no image scale/zoom) */
+.media-frame {
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.media-frame img {
+  display: block;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .media-frame:hover {
+    border-color: rgba(0, 114, 188, 0.55);
+    box-shadow: 0 0 0 1px rgba(0, 114, 188, 0.3), 0 4px 24px rgba(0, 114, 188, 0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pulse {
+    animation: none;
+    opacity: 0.85;
+  }
+  .tab-panel {
+    animation: none;
+  }
+  .media-frame:hover {
+    border-color: inherit;
+    box-shadow: none;
+  }
+  .glass-card {
+    transition: none;
+  }
+  .glass-card:hover {
+    transform: none;
+  }
+  .nav-item {
+    transition: none;
+  }
 }
 
 /* Sidebar Specific */
 .sidebar {
   width: 280px;
-  height: 100vh;
+  height: 100dvh;
   position: fixed;
   left: 0;
   top: 0;
@@ -174,7 +268,7 @@ h1, h2, h3, h4, h5, h6, .font-serif {
 .main-content {
   margin-left: 280px;
   padding: 2.5rem;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .menu-toggle,
@@ -191,7 +285,7 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   border-radius: var(--border-radius-pill); /* Pill shaped! */
   color: var(--text-muted);
   text-decoration: none;
-  transition: all 0.25s ease;
+  transition: background-color 160ms ease-out, color 160ms ease-out, box-shadow 160ms ease-out;
   cursor: pointer;
   margin-bottom: 0.5rem;
   font-weight: 500;
