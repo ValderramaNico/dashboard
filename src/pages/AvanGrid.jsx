@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import WeeklyProgress from '../components/WeeklyProgress';
+import Reveal from '../components/Reveal';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { FileSpreadsheet, Layers, UserCheck, Smartphone, Percent, CheckCircle, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
+import { FileSpreadsheet, Layers, UserCheck, Smartphone, Percent, CheckCircle, HelpCircle, ChevronDown } from 'lucide-react';
 import { getLatestTaskDate, normalizeTaskHistory, normalizeTasks } from '../utils/dashboard';
 
 const juneTimelineData = [
@@ -91,14 +92,14 @@ const AvanGrid = () => {
           <h2 className="text-2xl font-bold font-serif">AvanGrid (Antigravity)</h2>
           <p className="text-muted text-sm mt-1">Automatización mobile, integración continua y ejecución de pruebas.</p>
         </div>
-        
+
         {/* Toggle buttons (3 choices) */}
         <div className="tab-list" role="tablist" aria-label="Vistas de AvanGrid">
-          <button 
+          <button
             className="tab-button"
             role="tab"
             aria-selected={activeTab === 'weekly'}
-            style={{ 
+            style={{
               borderRadius: 'var(--border-radius-pill)',
               background: activeTab === 'weekly' ? 'var(--brand-blue)' : 'transparent',
               color: activeTab === 'weekly' ? '#fff' : 'var(--text-muted)'
@@ -107,11 +108,11 @@ const AvanGrid = () => {
           >
             Vista Semanal
           </button>
-          <button 
+          <button
             className="tab-button"
             role="tab"
             aria-selected={activeTab === 'june'}
-            style={{ 
+            style={{
               borderRadius: 'var(--border-radius-pill)',
               background: activeTab === 'june' ? 'var(--brand-blue)' : 'transparent',
               color: activeTab === 'june' ? '#fff' : 'var(--text-muted)'
@@ -120,11 +121,11 @@ const AvanGrid = () => {
           >
             Reporte Junio (Real)
           </button>
-          <button 
+          <button
             className="tab-button"
             role="tab"
             aria-selected={activeTab === 'mobile'}
-            style={{ 
+            style={{
               borderRadius: 'var(--border-radius-pill)',
               background: activeTab === 'mobile' ? 'var(--brand-blue)' : 'transparent',
               color: activeTab === 'mobile' ? '#fff' : 'var(--text-muted)'
@@ -170,34 +171,23 @@ const AvanGrid = () => {
               </div>
             ))}
           </div>
-          {selectedTasks.length > 3 && (
-            <div className="flex justify-center mt-4 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-              <button
-                type="button"
-                className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold"
-                style={{
-                  background: 'rgba(0, 180, 216, 0.12)',
-                  color: 'var(--brand-blue-light)',
-                  border: '1px solid rgba(0, 180, 216, 0.3)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-                onClick={() => setIsTasksExpanded(!isTasksExpanded)}
-              >
-                {isTasksExpanded ? (
-                  <>
-                    <span>Mostrar menos (ocultar {selectedTasks.length - 3} tareas)</span>
-                    <ChevronUp size={14} />
-                  </>
-                ) : (
-                  <>
-                    <span>Ver más ({selectedTasks.length - 3} tareas más)</span>
-                    <ChevronDown size={14} />
-                  </>
-                )}
-              </button>
-            </div>
-          )}
+        </div>
+      )}
+
+      {selectedTasks.length > 3 && (
+        <div className="flex justify-center mb-6" style={{ marginTop: '-0.5rem' }}>
+          <button
+            type="button"
+            className="flex items-center gap-2 px-5 py-2 rounded-full text-xs font-semibold task-expand-btn"
+            onClick={() => setIsTasksExpanded(!isTasksExpanded)}
+          >
+            <span>
+              {isTasksExpanded
+                ? `Mostrar menos (ocultar ${selectedTasks.length - 3} tareas)`
+                : `Ver más (${selectedTasks.length - 3} tareas más)`}
+            </span>
+            <ChevronDown size={14} className={`chevron-icon ${isTasksExpanded ? 'is-expanded' : ''}`} />
+          </button>
         </div>
       )}
 
@@ -205,13 +195,17 @@ const AvanGrid = () => {
         <p className="data-notice" role="status">No fue posible cargar la actualización diaria. El resto del dashboard sigue disponible.</p>
       )}
 
-      {activeTab === 'weekly' && <WeeklyProgress />}
+      {activeTab === 'weekly' && (
+        <div className="tab-panel">
+          <WeeklyProgress />
+        </div>
+      )}
 
       {activeTab === 'june' && (
-        <div className="w-full flex-col gap-6">
+        <div className="w-full flex-col gap-6 tab-panel">
           {/* June Widgets */}
           <div className="grid grid-cols-4 mb-6">
-            <div className="glass-card">
+            <Reveal delay={0} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Total Creados (Junio)</p>
@@ -222,9 +216,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-cyan font-semibold">Casos consolidados de QA</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={50} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Creados por Nicolás</p>
@@ -235,9 +229,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-muted">55.6% del total mensual</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={100} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Creados por Otros</p>
@@ -248,9 +242,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-muted">44.4% del total mensual</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={150} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Categoría Líder</p>
@@ -261,12 +255,12 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-cyan">28 Casos Creados</p>
-            </div>
+            </Reveal>
           </div>
 
           {/* June Charts */}
           <div className="grid grid-cols-2">
-            <div className="glass-card">
+            <Reveal className="glass-card">
               <h3 className="font-semibold text-xl mb-4">Línea de Tiempo de Creación</h3>
               <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
@@ -280,9 +274,9 @@ const AvanGrid = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="glass-card flex-col">
+            <Reveal delay={80} className="glass-card flex-col">
               <h3 className="font-semibold text-xl mb-4">Casos por Categoría</h3>
               <div className="flex items-center justify-between h-full" style={{ minHeight: '260px' }}>
                 <div style={{ width: '50%', height: 240 }}>
@@ -309,16 +303,16 @@ const AvanGrid = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       )}
 
       {activeTab === 'mobile' && (
-        <div className="w-full flex-col gap-6">
+        <div className="w-full flex-col gap-6 tab-panel">
           {/* Mobile KPI Cards */}
           <div className="grid grid-cols-4 mb-6">
-            <div className="glass-card">
+            <Reveal delay={0} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Progreso Global</p>
@@ -329,9 +323,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-cyan font-semibold">134 / 265 Casos Auto.</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={50} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Casos Automatizados</p>
@@ -342,9 +336,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-muted">En validación de QA</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={100} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Casos No Automáticos</p>
@@ -355,9 +349,9 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-muted">Excluidos de automatización</p>
-            </div>
+            </Reveal>
 
-            <div className="glass-card">
+            <Reveal delay={150} className="glass-card">
               <div className="flex justify-between items-start mb-2">
                 <div>
                   <p className="text-sm text-muted">Total General TCs</p>
@@ -368,14 +362,14 @@ const AvanGrid = () => {
                 </div>
               </div>
               <p className="text-sm text-muted">Base de pruebas total</p>
-            </div>
+            </Reveal>
           </div>
 
-          {/* Table and Chart */}
-          <div className="grid grid-cols-2">
-            <div className="glass-card">
+          {/* Chart and module cards */}
+          <div className="grid grid-cols-1" style={{ gap: '1.5rem' }}>
+            <Reveal className="glass-card">
               <h3 className="font-semibold text-xl mb-4">Casos Automatizados por Módulo</h3>
-              <div style={{ width: '100%', height: 300 }}>
+              <div style={{ width: '100%', height: 280 }}>
                 <ResponsiveContainer>
                   <BarChart data={mobileChartData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
                     <XAxis dataKey="name" stroke="var(--text-muted)" />
@@ -387,46 +381,38 @@ const AvanGrid = () => {
                   </BarChart>
                 </ResponsiveContainer>
               </div>
-            </div>
+            </Reveal>
 
-            <div className="glass-card flex-col" style={{ overflow: 'hidden' }}>
+            <Reveal delay={80} className="glass-card flex-col">
               <h3 className="font-semibold text-xl mb-4">Desglose Detallado de Módulos (CMP)</h3>
-              <div style={{ overflowX: 'auto', flex: 1 }}>
-                <table className="w-full text-sm" style={{ borderCollapse: 'collapse', textAlign: 'left' }}>
-                  <thead>
-                    <tr style={{ borderBottom: '1px solid var(--glass-border)', color: 'var(--text-muted)' }}>
-                      <th className="py-2">Módulo</th>
-                      <th className="py-2">Plataforma</th>
-                      <th className="py-2 text-center">Total</th>
-                      <th className="py-2 text-center text-purple">No Auto</th>
-                      <th className="py-2 text-center text-cyan">Auto</th>
-                      <th className="py-2 text-center">Pendiente</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {mobileStats.map((item, idx) => (
-                      <React.Fragment key={idx}>
-                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                          <td className="py-2 font-semibold text-white" rowSpan={2}>{item.module}</td>
-                          <td className="py-2 text-muted">Android</td>
-                          <td className="py-2 text-center">{item.androidAuto + item.androidNo + item.androidPen}</td>
-                          <td className="py-2 text-center">{item.androidNo}</td>
-                          <td className="py-2 text-center text-cyan">{item.androidAuto}</td>
-                          <td className="py-2 text-center">{item.androidPen}</td>
-                        </tr>
-                        <tr style={{ borderBottom: '1px solid var(--glass-border)' }}>
-                          <td className="py-2 text-muted">iOS</td>
-                          <td className="py-2 text-center">{item.iosAuto + item.iosNo + item.iosPen}</td>
-                          <td className="py-2 text-center">{item.iosNo}</td>
-                          <td className="py-2 text-center text-cyan">{item.iosAuto}</td>
-                          <td className="py-2 text-center">{item.iosPen}</td>
-                        </tr>
-                      </React.Fragment>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {mobileStats.map((item, idx) => (
+                  <div key={idx} className="module-card">
+                    <p className="font-bold text-white mb-2">{item.module}</p>
+                    <div className="module-platform-row">
+                      <span className="text-sm text-muted">Android</span>
+                      <span className="text-xs text-muted">
+                        Total <strong className="text-white">{item.androidAuto + item.androidNo + item.androidPen}</strong>
+                        {' · '}
+                        <span className="text-cyan">{item.androidAuto} auto</span>
+                        {' · '}
+                        <span className="text-purple">{item.androidNo} no-auto</span>
+                      </span>
+                    </div>
+                    <div className="module-platform-row">
+                      <span className="text-sm text-muted">iOS</span>
+                      <span className="text-xs text-muted">
+                        Total <strong className="text-white">{item.iosAuto + item.iosNo + item.iosPen}</strong>
+                        {' · '}
+                        <span className="text-cyan">{item.iosAuto} auto</span>
+                        {' · '}
+                        <span className="text-purple">{item.iosNo} no-auto</span>
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       )}

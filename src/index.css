@@ -5,6 +5,7 @@
   --bg-dark: #070f26; /* NTT DATA Deep Navy */
   --bg-card: rgba(14, 25, 54, 0.6); /* Slightly lighter navy for cards */
   --bg-card-hover: rgba(22, 38, 77, 0.7);
+  --bg-card-solid: #101d3f; /* Solid surface — no decorative blur, per anti-slop glassmorphism ban */
   
   --brand-blue: #0072bc; /* NTT DATA Corporate Blue */
   --brand-blue-light: #45b3f5;
@@ -155,23 +156,31 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   flex-shrink: 0;
 }
 
-/* Glassmorphism Card (NTT styled - round corners) */
-/* Single treatment: soft brand border + low-blur shadow (no ghost-card double effect) */
+/* Content surface (NTT styled - round corners) */
+/* Solid surface by default — no decorative backdrop-filter. Blur is reserved
+   for genuinely floating chrome (sidebar) per the glassmorphism-as-default ban. */
 .glass-card {
-  background: var(--bg-card);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: var(--bg-card-solid);
   border: 1px solid rgba(0, 114, 188, 0.18);
   border-radius: var(--border-radius-card);
   padding: 1.5rem;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.25);
-  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
 }
 
 .glass-card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
   border-color: rgba(0, 114, 188, 0.35);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 114, 188, 0.12);
+}
+
+/* Interactive cards (clickable / navigable) get the lift; static KPI/info
+   cards stay put so the whole grid doesn't bob on hover. */
+.glass-card-interactive {
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.glass-card-interactive:hover {
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -202,6 +211,34 @@ h1, h2, h3, h4, h5, h6, .font-serif {
 
 .tab-panel {
   animation: tab-fade-in 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Scroll-entry reveal — used by the <Reveal> component via IntersectionObserver.
+   Fades + lifts an element into place once it enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger helper — apply alongside .reveal with an inline --stagger-index
+   custom property, or use the `delay` prop on <Reveal>. Keeps cascades
+   short (40-60ms) per the animation-vocabulary guidance. */
+.stagger-item {
+  transition-delay: calc(var(--stagger-index, 0) * 50ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Media frame glow — subtle border/shadow brighten on hover (no image scale/zoom) */
@@ -337,12 +374,25 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: background-color 160ms ease-out, color 160ms ease-out, transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.tab-button:active {
+  transform: scale(0.96);
 }
 
 .tab-button[aria-selected="true"] {
   color: #fff;
   background: var(--brand-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-button {
+    transition: background-color 160ms ease-out, color 160ms ease-out;
+  }
+  .tab-button:active {
+    transform: none;
+  }
 }
 
 .data-notice {
@@ -352,6 +402,39 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   border-radius: 0.5rem;
   color: var(--text-muted);
   background: rgba(230, 182, 0, 0.08);
+}
+
+/* Standalone "show more" pill button — separated from the card above it,
+   centered as its own row so it reads as a page-level control, not a
+   card footer action. */
+.task-expand-btn {
+  background: rgba(0, 114, 188, 0.12);
+  color: var(--brand-blue-light);
+  border: 1px solid rgba(0, 114, 188, 0.28);
+  cursor: pointer;
+  transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1),
+              background-color 160ms ease-out,
+              border-color 160ms ease-out;
+}
+
+.task-expand-btn:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .task-expand-btn:hover {
+    background: rgba(0, 114, 188, 0.2);
+    border-color: rgba(0, 114, 188, 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-expand-btn {
+    transition: none;
+  }
+  .task-expand-btn:active {
+    transform: none;
+  }
 }
 
 .task-history-header {
@@ -400,6 +483,42 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Rotating chevron — swaps an icon-swap for a smooth 180deg rotation on the
+   same element, so expand/collapse reads as one continuous motion. */
+.chevron-icon {
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.chevron-icon.is-expanded {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron-icon {
+    transition: none;
+  }
+}
+
+/* Module breakdown cards — replaces the border-b-per-row spec table with a
+   grid of per-module cards (layout-bans #15 / hero-patterns density rules). */
+.module-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.module-platform-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.module-platform-row + .module-platform-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 /* Responsive */

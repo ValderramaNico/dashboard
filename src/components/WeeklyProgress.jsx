@@ -1,6 +1,7 @@
 import React from 'react';
 import { PlayCircle, FileText, Smartphone, Laptop } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Reveal from './Reveal';
 
 // Data representing executions this week by OPCO and Module
 // BGC: 15 (Make a Payment iOS) + 7 (Login iOS) + 7 (Login Android) = 29 cases
@@ -16,7 +17,7 @@ const WeeklyProgress = () => {
       
       {/* Top Widgets */}
       <div className="grid grid-cols-4 mb-6">
-        <div className="glass-card">
+        <Reveal delay={0} className="glass-card">
           <div className="flex justify-between items-start mb-2">
             <div>
               <p className="text-sm text-muted">Casos Creados/Refact.</p>
@@ -27,9 +28,9 @@ const WeeklyProgress = () => {
             </div>
           </div>
           <p className="text-sm text-cyan font-semibold">Refactorización Módulo SCG</p>
-        </div>
-        
-        <div className="glass-card">
+        </Reveal>
+
+        <Reveal delay={50} className="glass-card">
           <div className="flex justify-between items-start mb-2">
             <div>
               <p className="text-sm text-muted">Casos Ejecutados</p>
@@ -40,9 +41,9 @@ const WeeklyProgress = () => {
             </div>
           </div>
           <p className="text-sm text-purple font-semibold">6 Ciclos Completados</p>
-        </div>
+        </Reveal>
 
-        <div className="glass-card">
+        <Reveal delay={100} className="glass-card">
           <div className="flex justify-between items-start mb-2">
             <div>
               <p className="text-sm text-muted">OPCOs Activas</p>
@@ -53,9 +54,9 @@ const WeeklyProgress = () => {
             </div>
           </div>
           <p className="text-sm text-muted">BGC y CNG</p>
-        </div>
+        </Reveal>
 
-        <div className="glass-card">
+        <Reveal delay={150} className="glass-card">
           <div className="flex justify-between items-start mb-2">
             <div>
               <p className="text-sm text-muted">Plataformas</p>
@@ -66,7 +67,7 @@ const WeeklyProgress = () => {
             </div>
           </div>
           <p className="text-sm text-cyan">iOS y Android</p>
-        </div>
+        </Reveal>
       </div>
 
       {/* Main Chart and Summary info */}
