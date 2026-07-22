@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WeeklyProgress from '../components/WeeklyProgress';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { FileSpreadsheet, Layers, UserCheck, Smartphone, Percent, CheckCircle, HelpCircle } from 'lucide-react';
+import { FileSpreadsheet, Layers, UserCheck, Smartphone, Percent, CheckCircle, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { getLatestTaskDate, normalizeTaskHistory, normalizeTasks } from '../utils/dashboard';
 
 const juneTimelineData = [
@@ -46,6 +46,7 @@ const AvanGrid = () => {
   const [taskHistory, setTaskHistory] = useState({});
   const [selectedTaskDate, setSelectedTaskDate] = useState('');
   const [taskLoadError, setTaskLoadError] = useState(false);
+  const [isTasksExpanded, setIsTasksExpanded] = useState(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}task_history.json`)
@@ -74,11 +75,13 @@ const AvanGrid = () => {
 
   const taskDates = Object.keys(taskHistory).sort().reverse();
   const selectedTasks = taskHistory[selectedTaskDate] ?? todayTasks;
+  const visibleTasks = isTasksExpanded ? selectedTasks : selectedTasks.slice(0, 3);
 
   const handleTaskDateChange = (event) => {
     const date = event.target.value;
     setSelectedTaskDate(date);
     setTodayTasks(taskHistory[date] ?? []);
+    setIsTasksExpanded(false);
   };
 
   return (
@@ -140,6 +143,7 @@ const AvanGrid = () => {
             <h3 className="font-semibold text-lg text-cyan flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-cyan status-pulse"></span>
               Tareas finalizadas ({selectedTaskDate || selectedTasks[0].date})
+              <span className="text-xs text-muted font-normal ml-2">({selectedTasks.length} en total)</span>
             </h3>
             {taskDates.length > 1 && (
               <label className="task-date-picker" htmlFor="task-history-date">
@@ -151,7 +155,7 @@ const AvanGrid = () => {
             )}
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {selectedTasks.map((task) => (
+            {visibleTasks.map((task) => (
               <div key={task.key} className="p-3 rounded-xl flex justify-between items-start" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)' }}>
                 <div>
                   <span className="text-xs bg-cyan text-dark font-bold px-2 py-0.5 rounded mr-2" style={{ backgroundColor: 'var(--brand-blue)', color: '#fff' }}>{task.key}</span>
@@ -166,6 +170,34 @@ const AvanGrid = () => {
               </div>
             ))}
           </div>
+          {selectedTasks.length > 3 && (
+            <div className="flex justify-center mt-4 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+              <button
+                type="button"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold"
+                style={{
+                  background: 'rgba(0, 180, 216, 0.12)',
+                  color: 'var(--brand-blue-light)',
+                  border: '1px solid rgba(0, 180, 216, 0.3)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onClick={() => setIsTasksExpanded(!isTasksExpanded)}
+              >
+                {isTasksExpanded ? (
+                  <>
+                    <span>Mostrar menos (ocultar {selectedTasks.length - 3} tareas)</span>
+                    <ChevronUp size={14} />
+                  </>
+                ) : (
+                  <>
+                    <span>Ver más ({selectedTasks.length - 3} tareas más)</span>
+                    <ChevronDown size={14} />
+                  </>
+                )}
+              </button>
+            </div>
+          )}
         </div>
       )}
 

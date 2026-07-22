@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-22T19:45:57.326Z",
+  "updatedAt": "2026-07-22T19:55:27.671Z",
   "days": {
     "2026-07-17": [
       {
@@ -73,6 +73,22 @@
         "sheet": "Outages",
         "key": "MSTREG-T22631",
         "name": "CMP - MNDC-111 - Android - Call 911 - Confirm Dialog, Cancel, and Call Behavior",
+        "assigned": "Nicolas"
+      }
+    ],
+    "2026-07-21": [
+      {
+        "date": "2026-07-21",
+        "sheet": "Outages",
+        "key": "MSTREG-T22625",
+        "name": "CMP - MNDC-111 - Android - Facebook opens native app for CMP if installed",
+        "assigned": "Nicolas"
+      },
+      {
+        "date": "2026-07-21",
+        "sheet": "Outages",
+        "key": "MSTREG-T22626",
+        "name": "CMP - MNDC-111 - Android - Facebook falls back to in-app webview for CMP if not installed",
         "assigned": "Nicolas"
       }
     ]
